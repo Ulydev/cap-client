@@ -130,7 +130,7 @@
 </style>
 
 <Panel
-	class={`shadow-lg rounded-md mt-8 bg-green-400 relative ${ !!productInfo ? "slide-to-left" : "" }`}>
+	class={`mx-2 lg:mx-0 shadow-lg rounded-md mt-8 bg-green-400 relative ${ !!productInfo ? "slide-to-left" : "" }`}>
 
 	<form
 		on:submit|preventDefault={_submitOrder}
