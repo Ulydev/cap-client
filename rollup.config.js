@@ -1,4 +1,5 @@
 import svelte from 'rollup-plugin-svelte';
+import sveltePreprocess from "svelte-preprocess";
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
@@ -26,7 +27,25 @@ export default {
             // a separate file - better for performance
             css: css => {
                 css.write('bundle.' + version + '.css');
-            }
+            },
+            preprocess: sveltePreprocess({
+                // https://github.com/kaisermann/svelte-preprocess/#user-content-options
+                sourceMap: !production,
+                postcss: {
+                  plugins: [
+                     require("tailwindcss"), 
+                     require("autoprefixer"),
+                     require("postcss-nesting")
+                  ],
+                },
+            }),
+            onwarn: (warning, handler) => {
+                const { code } = warning;
+                if (code === "css-unused-selector")
+                    return;
+        
+                handler(warning);
+            },
         }),
 
         // If you have external dependencies installed from
@@ -56,7 +75,7 @@ export default {
                     .join('\n');
                 return `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg">
 <head>
     <meta charset='utf-8'>
     <title>Cap</title>
