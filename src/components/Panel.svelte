@@ -1,7 +1,7 @@
 <script>
-	export let title;
-	export let loading;
-	export let showToggler;
+	export let title = undefined;
+	export let loading = false;
+	export let showToggler = false;
 
 	let collapsed = false;	
 	function toggle() {
@@ -10,40 +10,10 @@
 
 </script>
 
-<style>
-	.panel {
-		background: #eee;
-		margin-bottom: var(--base-padding);
-		border-radius: 4px;
-		overflow: hidden;
-	}
-	.header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin: 0;
-		background: #ddd;
-		padding: var(--base-padding);
-	}
-	.header span {
-		flex: 1;
-	}
-	.header a {
-		text-decoration: none;
-		padding-left: 15px;
-	}
-	.body {
-	}
-	.loading {
-		pointer-events: none;
-		opacity: 0.5;
-	}
-</style>
-
-<div class={loading ? 'panel loading' : 'panel'}>
+<div class={`${loading ? 'panel loading' : 'panel'} ${$$restProps.class || ""}`} style={$$restProps.style || ""}>
 	{#if title}
-	<div class='header'>
-		<span><strong>{title}</strong></span>
+	<div class='text-sm'>
+		<span>{title}</span>
 		{#if showToggler}<a on:click={toggle}>{#if collapsed}+{:else}—{/if}</a>{/if}
 	</div>
 	{/if}

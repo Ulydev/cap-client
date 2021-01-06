@@ -1,6 +1,7 @@
 <script>
 
 	import { onMount } from 'svelte';
+import { formatAddress } from '../lib/utils';
 	import { user, chainId } from '../stores/main'
 	import { showToast } from '../stores/toasts'
 
@@ -117,7 +118,7 @@
 </style>
 
 {#if $user}
-	<div>✔ {$user}</div>
+	<div>{ formatAddress($user) }</div>
 {:else}
 	<div><a on:click={connect}>Connect Metamask</a></div>
 {/if}

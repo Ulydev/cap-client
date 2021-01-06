@@ -11,6 +11,10 @@ export function getAddress(name) {
 	return CONTRACTS[ethereum.chainId][name];
 }
 
+export function formatAddress(address) {
+	return address ? `0x${ address.slice(2, 6) }...${ address.slice(-4) }` : ""
+}
+
 export function formatUserForEvent(user) {
 	return '0x' + user.slice(2).padStart(64, 0);
 }
@@ -101,4 +105,11 @@ export function decodeBytes32Array(bytesStr, offset, size) {
 		offset += 64;
 	}
 	return result;
+}
+
+export function getChainLabel(chainId) {
+	switch (chainId) {
+		case "0x1": return "MAINNET"
+		case "0x3": return "ROPSTEN"
+	}
 }

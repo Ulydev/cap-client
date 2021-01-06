@@ -1,6 +1,9 @@
 <script>
 
+	import { Router, Route } from "svelte-routing";
+
 	import Header from './components/Header.svelte'
+	import Nav from './components/Nav.svelte'
 
 	import Balance from './components/Balance.svelte'
 	import NewOrder from './components/NewOrder.svelte'
@@ -22,25 +25,30 @@
 		reloadPositions.update(n => n + 1);
 	}, 5000);
 
+	export let url = "";
+
 </script>
 
-<style>
-	.container {
-		width: 100%;
-		max-width: var(--container-width);
-		padding: 0 var(--base-padding);
-		margin: 0 auto;
-	}
-</style>
-
-<div class='container'>
+<div class="">
 	<Header/>
-	{#if $user}
-		<Balance/>
-		<NewOrder/>
-		<Positions/>
-		<Events/>
-	{/if}
+	<div class="max-w-sm mx-auto my-20">
+		{#if $user}
+			<NewOrder/>
+
+			<div class="mx-4">
+				<Router url="{url}">
+					<Nav />
+					<hr class="mb-6 border-gray-400 border-dotted border-t-2" />
+					<div>
+						<Route path="/positions"><Positions /></Route>
+						<Route path="/events"><Events /></Route>
+						<Route path="/"><Balance /></Route>
+					</div>
+					<hr class="mt-6 border-gray-400 border-dotted border-t-2" />
+				</Router>
+			</div>
+		{/if}
+	</div>
 	<Footer/>
 </div>
 <Toast/>

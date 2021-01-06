@@ -166,71 +166,124 @@
 	}
 </style>
 
-<Panel title='Positions'>
+<Panel class='flex flex-col text-gray-400'>
+	<div class="text-lg mb-4 font-semibold dark:text-white">Positions</div>
 	{#if !$positions || !$positions.length}
-		<div class='row'>
+		<div>
 			Nothing to show.
 		</div>
 	{:else}
-		{#each $positions as position}
+		<div class="flex flex-col space-y-2">
+			{#each $positions as position}
 
-			<div class='row'>
-				<span>
-					{position.isBuy ? '⬆' : '⬇'} {figiToProduct(position.symbol)} {formatBigInt(position.leverage, BigInt(8))}×{formatBigInt(position.margin, BigInt(8))} DAI @ {formatBigInt(position.price, BigInt(8))} [{position.id}]
-				</span>
-				<a on:click={() => {toggleClosePosition(position.id)}}>Close</a> <a on:click={() => {toggleEstimator(position.id)}}>Est</a>
-			</div>
-			{#if showClosePosition == position.id}
-				<div class='sub-row'>
-					<form
-						on:submit|preventDefault={() => {closePosition(position.id, position.isBuy, formatBigInt(position.margin, BigInt(8), BigInt(8)))}}
-						on:invalid={validateInputs}
-						on:changed={validateInputs}
-						on:input={validateInputs}
-					>
-						<Input
-							bind:element={input}
-							placeholder='Margin to close'
-							bind:value={margin}
-						/>
-						<Button 
-							text='Close'
-							isloading={loadingClose}
-						/>
-					</form>
-				</div>
-			{/if}
-			{#if showEstimator == position.id}
-				<div class='sub-row'>
-					<form
-						on:submit|preventDefault={() => {estimatePnl(position)}}
-						on:invalid={validateInputs}
-						on:changed={validateInputs}
-						on:input={validateInputs}
-					>
-						<Input
-							bind:element={input}
-							placeholder='Margin to close'
-							bind:value={margin}
-						/>
-						<Input
-							bind:element={input}
-							placeholder='Price to close at'
-							bind:value={close_price}
-						/>
-						{#if estimatedPnl}
-						<div class='pd'>
-							Estimated P/L: {estimatedPnl} (includes spread and funding)
+				<div class="flex flex-col shadow-lg bg-green-600 rounded-md">
+					<div class='flex flex-col space-y-1 bg-green-400 rounded-md shadow-sm p-4 text-white'>
+						<div class="flex flex-col">
+							<div class="flex flex-row justify-between text-2xl">
+								<span class="font-bold">{position.isBuy ? '⬆' : '⬇'} {figiToProduct(position.symbol)}</span>
+								<span>@ {formatBigInt(position.price, BigInt(8))}</span>
+							</div>
+							<div class="flex flex-row justify-between">
+								<span class="">{formatBigInt(position.leverage, BigInt(8))}×{formatBigInt(position.margin, BigInt(8))} DAI</span>
+								<span>[{position.id}]</span>
+							</div>
 						</div>
-						{/if}
-						<Button 
-							text='Estimate P/L'
-							isloading={loadingEstimatePnl}
-						/>
-					</form>
+						<div class="flex flex-row justify-end space-x-2">
+							<button
+								class={`border px-2 rounded-sm ${showClosePosition == position.id ? "text-gray-800 border-gray-800" : "text-white border-white"}`}
+								on:click={() => {toggleClosePosition(position.id)}}>Close</button>
+							<span>-</span>
+							<button
+								class={`border px-2 rounded-sm ${showEstimator == position.id ? "text-gray-800 border-gray-800" : "text-white border-white"}`}
+								on:click={() => {toggleEstimator(position.id)}}>Est</button>
+						</div>
+					</div>
+					{#if showAddMargin == position.id}
+						<div class='p-4'>
+							<form
+								on:submit|preventDefault={() => {addMargin(position.id, position.isBuy)}}
+								on:invalid={validateInputs}
+								on:changed={validateInputs}
+								on:input={validateInputs}
+								class="space-y-2"
+							>
+								<Input
+									inverted
+									bind:element={input}
+									placeholder='Margin to add'
+									bind:value={margin}
+								/>
+								<Button 
+									inverted
+									text='Add Margin'
+									isloading={loadingAddMargin}
+									class="bg-white text-green-400"
+								/>
+							</form>
+						</div>
+					{/if}
+					{#if showClosePosition == position.id}
+						<div class='p-4'>
+							<form
+								on:submit|preventDefault={() => {closePosition(position.id, position.isBuy, formatBigInt(position.margin, BigInt(8)))}}
+								on:invalid={validateInputs}
+								on:changed={validateInputs}
+								on:input={validateInputs}
+								class="space-y-2"
+							>
+								<Input
+									inverted
+									bind:element={input}
+									placeholder='Margin to close'
+									bind:value={margin}
+								/>
+								<Button 
+									inverted
+									text='Close'
+									isloading={loadingClose}
+									class="bg-white text-green-400"
+								/>
+							</form>
+						</div>
+					{/if}
+					{#if showEstimator == position.id}
+						<div class='p-4'>
+							<form
+								on:submit|preventDefault={() => {estimatePnl(position)}}
+								on:invalid={validateInputs}
+								on:changed={validateInputs}
+								on:input={validateInputs}
+								class="space-y-2"
+							>
+								<Input
+									inverted
+									bind:element={input}
+									placeholder='Margin to close'
+									bind:value={margin}
+								/>
+								<Input
+									inverted
+									bind:element={input}
+									placeholder='Price to close at'
+									bind:value={close_price}
+								/>
+								{#if estimatedPnl}
+								<div class='text-white'>
+									Estimated P/L: {estimatedPnl} (includes spread and funding)
+								</div>
+								{/if}
+								<Button 
+									inverted
+									text='Estimate P/L'
+									isloading={loadingEstimatePnl}
+									class="bg-white text-green-400"
+								/>
+							</form>
+						</div>
+					{/if}
 				</div>
-			{/if}
 
-		{/each}
+			{/each}
+		</div>
 	{/if}
 </Panel>

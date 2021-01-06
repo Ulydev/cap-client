@@ -2,9 +2,9 @@
 	import Panel from './Panel.svelte'
 	import Input from './Input.svelte'
 	import Button from './Button.svelte'
-	import { baseBalance, reloadBalance, freeMargin } from '../stores/balances'
+	import { baseBalance, freeMargin } from '../stores/balances'
 	import { chainId } from '../stores/main'
-	import { asyncTimeout, formatBigInt, parseDecimal } from '../lib/utils'
+	import { formatBigInt, parseDecimal } from '../lib/utils'
 	import { showToast } from '../stores/toasts'
 
 	import deposit from '../lib/deposit'
@@ -72,19 +72,32 @@
 		}
 	}
 
+	async function setMaxDepositAmount() {
+		depositAmount = formatBigInt($baseBalance)
+	}
+
+	async function setMaxWithdrawAmount() {
+		withdrawAmount = formatBigInt($freeMargin, BigInt(8))
+	}
+
 </script>
 
 <style>
 </style>
 
-<Panel title='Balance'>
-	<div class='row'>
-		<div class='label'>DAI <a on:click={toggleDeposit} title='Deposit DAI'>Deposit</a> | <a on:click={toggleWithdraw} title='Withdraw DAI'>Withdraw</a></div>
+<Panel class="flex flex-col">
+	<span class="text-lg my-4 font-semibold dark:text-white">Account</span>
+	<div class='flex flex-row justify-between mb-6 text-gray-400'>
+		<div class='label'>DAI</div>
 		<div class='value'>{formatBigInt($freeMargin, BigInt(8))}</div>
 	</div>
+	<div class="flex flex-row space-x-2">
+		<button on:click={toggleDeposit} title='Deposit DAI' class={`flex-1 py-1 text-center rounded-sm border border-green-400 ${showDeposit ? "bg-green-400 text-white" : "text-green-400"}`}>Deposit</button>
+		<button on:click={toggleWithdraw} title='Withdraw DAI' class={`flex-1 py-1 text-center rounded-sm border border-green-400 ${showWithdraw ? "bg-green-400 text-white" : "text-green-400"}`}>Withdraw</button>
+	</div>
 	{#if showDeposit || showWithdraw}
-	<div class='row'>
-		<div class='label'>Wallet DAI {#if chainId != '0x1'}(<a title='Get 10,000 testnet DAI' on:click={faucet}>faucet</a>){/if}</div>
+	<div class='mt-8 mb-4 flex flex-row justify-between text-gray-400'>
+		<div class='label'>Wallet DAI {#if $chainId != '0x1'}<button title='Get 10,000 testnet DAI' class="p-1 border border-green-400 text-gray-800 dark:text-white rounded-sm" on:click={faucet}>faucet</button>{/if}</div>
 		<div class='value'>{formatBigInt($baseBalance)}</div>
 	</div>
 	{/if}
@@ -94,17 +107,24 @@
 		on:invalid={validateInputs}
 		on:changed={validateInputs}
 		on:input={validateInputs}
+		class="flex flex-col space-y-2"
 	>
-		<div class='row'>
+		<div class='relative'>
 			<Input
 				bind:element={input}
 				placeholder='DAI amount to deposit'
 				bind:value={depositAmount}
+				class="text-white"
 			/>
+			<button class="absolute flex flex-row items-center right-0 top-0 mr-4 h-10 text-white" type="button" on:click={setMaxDepositAmount}>
+				MAX
+			</button>
 		</div>
 		<div class='row'>
 			<Button 
+				inverted
 				text='Deposit'
+				class="border-green-400 bg-green-400"
 			/>
 		</div>
 	</form>
@@ -115,17 +135,24 @@
 		on:invalid={validateInputs}
 		on:changed={validateInputs}
 		on:input={validateInputs}
+		class="flex flex-col space-y-2"
 	>
-		<div class='row'>
+		<div class='relative'>
 			<Input
 				bind:element={input}
 				placeholder='DAI amount to withdraw'
 				bind:value={withdrawAmount}
+				class="text-white"
 			/>
+			<button class="absolute flex flex-row items-center right-0 top-0 mr-4 h-10 text-white" type="button" on:click={setMaxWithdrawAmount}>
+				MAX
+			</button>
 		</div>
 		<div class='row'>
 			<Button 
+				inverted
 				text='Withdraw'
+				class="border-green-400 bg-green-400"
 			/>
 		</div>
 	</form>

@@ -1,45 +1,34 @@
 <script>
 
 	export let _type = 'number';
+	export let inverted = false;
 	export let value;
 	export let placeholder;
 	export let disabled = false;
 	export let element;
-	export let uppercase;
+	export let uppercase = false;
+
+	const className = `w-full border bg-transparent px-4 py-2 rounded-sm ${inverted ? "border-white text-white placeholder-gray-200" : ""} ${$$restProps.class || ""}`
 
 </script>
 
 <style>
-	input {
-		width: 100%;
-		font-family: inherit;
-		font-size: inherit;
-		padding: 0 9px;
-		height: 48px;
-		margin: 0;
-		outline: none;
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-	}
-	input.uppercase {
+	input.input-uppercase {
 		text-transform: uppercase;
 	}
-	input:focus {
-		border-color: var(--color-blue);
-	}
-	::-webkit-input-placeholder { /* WebKit browsers */
+	::-webkit-input-placeholder {
 	    text-transform: none;
 	}
-	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	:-moz-placeholder { 
 	    text-transform: none;
 	}
-	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	::-moz-placeholder { 
 	    text-transform: none;
 	}
-	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	:-ms-input-placeholder { 
 	    text-transform: none;
 	}
-	::placeholder { /* Recent browsers */
+	::placeholder {
 	    text-transform: none;
 	}
 </style>
@@ -54,15 +43,16 @@
 		required
 		placeholder={placeholder || ''}
 		bind:value={value}
+		class={className}
 	>
 {:else}
 	<input
 		bind:this={element}
-		class={uppercase ? 'uppercase' : ''}
 		type='text'
 		{disabled}
 		required
 		placeholder={placeholder || ''}
 		bind:value={value}
+		class={`${className} ${uppercase ? "input-uppercase" : ""}`}
 	>
 {/if}
