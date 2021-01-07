@@ -1,5 +1,6 @@
 <script>
 	import DarkModeToggle from "./DarkModeToggle.svelte";
+import ProModeToggle from "./ProModeToggle.svelte";
 </script>
 
 <footer class="flex flex-col items-center space-y-2 max-w-3xl mx-auto text-center my-8 text-xs text-gray-800 dark:text-gray-400">
@@ -7,6 +8,7 @@
 		Cap • <a href='https://t.me/capfin' class="text-green-400">Telegram</a>
 	</span>
 	<DarkModeToggle />
+	<ProModeToggle />
 	<div class="flex flex-col space-y-2 pt-8">
 		<span class="font-bold">volunteer contributors:</span>
 		<div class="flex flex-col">
