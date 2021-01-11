@@ -43,7 +43,7 @@
 		required
 		placeholder={placeholder || ''}
 		bind:value={value}
-		class={className}
+		class={`${$$props.overrideClass ? $$props.class : className}`}
 	>
 {:else}
 	<input
@@ -53,6 +53,6 @@
 		required
 		placeholder={placeholder || ''}
 		bind:value={value}
-		class={`${className} ${uppercase ? "input-uppercase" : ""}`}
+		class={`${$$props.overrideClass ? $$props.class : className} ${uppercase ? "input-uppercase" : ""}`}
 	>
 {/if}

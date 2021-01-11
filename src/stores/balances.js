@@ -1,5 +1,6 @@
 import { writable, derived } from 'svelte/store'
-import { user, chainId, selectedProduct } from './main'
+import { user, chainId } from './main'
+import { selectedProduct } from "./product"
 
 import getBalance from '../lib/getBalance'
 import getUserFreeMargin from '../lib/getUserFreeMargin'

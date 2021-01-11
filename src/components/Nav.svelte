@@ -1,7 +1,7 @@
 <script>
 	import { Link } from "svelte-routing";
 
-	const activeClass = "text-green-400 dark:text-white font-semibold";
+	const activeClass = "text-primary-100 dark:text-white font-semibold";
 	function getLinkProps({ href, isPartiallyCurrent, isCurrent }) {
 		const isActive = href === "/" ? isCurrent : isPartiallyCurrent || isCurrent;
 

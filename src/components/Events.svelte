@@ -81,8 +81,8 @@
 		<div class="flex flex-col space-y-2">	
 			{#each $events as event}
 
-				<div class="flex flex-col shadow-lg bg-green-600 rounded-md">
-					<div class='flex flex-col p-2 rounded-md shadow-sm bg-green-400 p-4 text-white'>
+				<div class="flex flex-col shadow-lg bg-primary-400 rounded-md">
+					<div class='flex flex-col p-2 rounded-md shadow-sm bg-primary-100 p-4 text-white'>
 						<div class="flex flex-row items-center space-x-2">
 							<span>
 								{eventSymbol(event)}

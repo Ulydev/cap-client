@@ -176,8 +176,8 @@
 		<div class="flex flex-col space-y-2">
 			{#each $positions as position}
 
-				<div class="flex flex-col shadow-lg bg-green-600 rounded-md">
-					<div class='flex flex-col space-y-1 bg-green-400 rounded-md shadow-sm p-4 text-white'>
+				<div class="flex flex-col shadow-lg bg-primary-400 rounded-md">
+					<div class='flex flex-col space-y-1 bg-primary-100 rounded-md shadow-sm p-4 text-white'>
 						<div class="flex flex-col">
 							<div class="flex flex-row justify-between text-2xl">
 								<span class="font-bold">{position.isBuy ? '⬆' : '⬇'} {figiToProduct(position.symbol)}</span>
@@ -217,7 +217,7 @@
 									inverted
 									text='Add Margin'
 									isloading={loadingAddMargin}
-									class="bg-white text-green-400"
+									class="bg-white text-primary-100"
 								/>
 							</form>
 						</div>
@@ -241,7 +241,7 @@
 									inverted
 									text='Close'
 									isloading={loadingClose}
-									class="bg-white text-green-400"
+									class="bg-white text-primary-100"
 								/>
 							</form>
 						</div>
@@ -276,7 +276,7 @@
 									inverted
 									text='Estimate P/L'
 									isloading={loadingEstimatePnl}
-									class="bg-white text-green-400"
+									class="bg-white text-primary-100"
 								/>
 							</form>
 						</div>

@@ -13,7 +13,7 @@
 
 	onMount(() => {
 		if (localStorage.mode === 'pro') {
-            proMode.set(true)
+            //proMode.set(true)
 		}
 	})
 </script>

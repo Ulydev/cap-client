@@ -92,12 +92,12 @@
 		<div class='value'>{formatBigInt($freeMargin, BigInt(8))}</div>
 	</div>
 	<div class="flex flex-row space-x-2">
-		<button on:click={toggleDeposit} title='Deposit DAI' class={`flex-1 py-1 text-center rounded-sm border border-green-400 ${showDeposit ? "bg-green-400 text-white" : "text-green-400"}`}>Deposit</button>
-		<button on:click={toggleWithdraw} title='Withdraw DAI' class={`flex-1 py-1 text-center rounded-sm border border-green-400 ${showWithdraw ? "bg-green-400 text-white" : "text-green-400"}`}>Withdraw</button>
+		<button on:click={toggleDeposit} title='Deposit DAI' class={`flex-1 py-1 text-center rounded-sm border border-primary-100 ${showDeposit ? "bg-primary-100 text-white" : "text-primary-100"}`}>Deposit</button>
+		<button on:click={toggleWithdraw} title='Withdraw DAI' class={`flex-1 py-1 text-center rounded-sm border border-primary-100 ${showWithdraw ? "bg-primary-100 text-white" : "text-primary-100"}`}>Withdraw</button>
 	</div>
 	{#if showDeposit || showWithdraw}
 	<div class='mt-8 mb-4 flex flex-row justify-between text-gray-400'>
-		<div class='label'>Wallet DAI {#if $chainId != '0x1'}<button title='Get 10,000 testnet DAI' class="p-1 border border-green-400 text-gray-800 dark:text-white rounded-sm" on:click={faucet}>faucet</button>{/if}</div>
+		<div class='label'>Wallet DAI {#if $chainId != '0x1'}<button title='Get 10,000 testnet DAI' class="p-1 border border-primary-100 text-gray-800 dark:text-white rounded-sm" on:click={faucet}>faucet</button>{/if}</div>
 		<div class='value'>{formatBigInt($baseBalance)}</div>
 	</div>
 	{/if}
@@ -124,7 +124,7 @@
 			<Button 
 				inverted
 				text='Deposit'
-				class="border-green-400 bg-green-400"
+				class="border-primary-100 bg-primary-100"
 			/>
 		</div>
 	</form>
@@ -152,7 +152,7 @@
 			<Button 
 				inverted
 				text='Withdraw'
-				class="border-green-400 bg-green-400"
+				class="border-primary-100 bg-primary-100"
 			/>
 		</div>
 	</form>
