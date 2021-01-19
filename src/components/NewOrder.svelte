@@ -222,7 +222,6 @@
 								<span class="text-sm uppercase">Margin</span>
 								<div class="relative my-2">
 									<Input
-										inverted
 										bind:element={input}
 										placeholder='0.00'
 										bind:value={margin}
@@ -238,7 +237,6 @@
 							<div class='flex flex-col w-28'>
 								<span class="text-sm uppercase">Leverage</span>
 								<Input
-									inverted
 									bind:element={input}
 									placeholder='1.0'
 									bind:value={leverage}
