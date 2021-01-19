@@ -8,7 +8,7 @@
 	export let element;
 	export let uppercase = false;
 
-	const className = `w-full border bg-transparent px-4 py-2 rounded-sm ${inverted ? "border-white text-white placeholder-gray-200" : ""} ${$$restProps.class || ""}`
+	const className = `placeholder-gray-700 text-gray-900 dark:placeholder-gray-300 dark:text-white w-full bg-white bg-opacity-75 dark:bg-black dark:bg-opacity-25 shadow-inner px-4 py-2 rounded-sm ${inverted ? "border-white text-white placeholder-gray-200" : ""} ${$$restProps.class || ""}`
 
 </script>
 

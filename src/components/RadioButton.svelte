@@ -4,7 +4,7 @@
 	export let label;
 </script>
 
-<style>
+<style lang="postcss">
 	input {
 		display: none;
 	}
@@ -23,23 +23,22 @@
 		content: '';
 	}
 
-	label span:before {
-		border: 1px solid white;
-		width: 1rem;
-		height: 1rem;
-		margin-right: 0.5rem;
-		display: inline-block;
-		vertical-align: top;
+	label input:checked+span:before {
+		@apply border-b-2;
+		@apply border-primary-100;
+		@apply bottom-0;
+		@apply left-0;
+		@apply w-full;
+		@apply absolute;
 	}
 
-	label span:after {
-		background: white;
-		width: 0.5rem;
-		height: 0.5rem;
-		position: absolute;
-		top: 0.5rem;
-		left: 0.25rem;
-		opacity: 0;
+	label input:not(:checked)+span {
+		@apply opacity-75;
+	}
+
+	label input:checked+span {
+		@apply dark:bg-gray-900;
+		@apply bg-gray-300;
 	}
 
 	label input:checked+span:after {
@@ -47,7 +46,7 @@
 	}
 </style>
 
-<label class="flex flex-row items-center">
+<label class="flex-1 flex flex-col items-center justify-center hover:opacity-75 transition duration-300">
 	<input type=radio bind:group={group} value={value}>
-	<span class="flex flex-row items-center">{label}</span>
+	<span class="relative flex flex-col items-center pb-2 pt-1 rounded-sm">{label}</span>
 </label>

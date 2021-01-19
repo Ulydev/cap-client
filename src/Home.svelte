@@ -29,26 +29,29 @@
 
 </script>
 
-<div class="">
-	<Header/>
-	<div class="max-w-sm mx-auto my-20">
-		{#if $user}
-			<NewOrder/>
-
-			<div class="mx-4">
-				<Router url="{url}">
-					<Nav />
-					<hr class="mb-6 border-gray-400 border-dotted border-t-2" />
-					<div>
-						<Route path="/positions"><Positions /></Route>
-						<Route path="/events"><Events /></Route>
-						<Route path="/"><Balance /></Route>
-					</div>
-					<hr class="mt-6 border-gray-400 border-dotted border-t-2" />
-				</Router>
-			</div>
-		{/if}
+<div class="relative min-h-screen">
+	<div class="pattern-dots w-full h-full absolute left-0 top-0 opacity-25 dark:opacity-10 text-primary-100 dark:text-primary-400" />
+	<div class="relative z-10">
+		<Header/>
+		<div class="max-w-sm mx-auto my-20">
+			{#if $user}
+				<NewOrder/>
+	
+				<div class="mx-4">
+					<Router url="{url}">
+						<Nav />
+						<hr class="mb-6 border-gray-400 border-dotted border-t-2" />
+						<div>
+							<Route path="/positions"><Positions /></Route>
+							<Route path="/events"><Events /></Route>
+							<Route path="/"><Balance /></Route>
+						</div>
+						<hr class="mt-6 border-gray-400 border-dotted border-t-2" />
+					</Router>
+				</div>
+			{/if}
+		</div>
+		<Footer/>
 	</div>
-	<Footer/>
 </div>
 <Toast/>

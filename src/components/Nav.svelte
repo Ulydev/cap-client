@@ -13,7 +13,7 @@
 
 </script>
 
-<nav class="flex flex-row items-center space-x-6 py-4 my-4 text-sm text-gray-400 font-semibold">
+<nav class="flex flex-row items-center space-x-6 py-4 my-4 text-sm text-gray-700 dark:text-gray-500 font-semibold">
 	<Link to="/" getProps={getLinkProps}>BALANCES</Link>
 	<Link to="/positions" getProps={getLinkProps}>OPEN POSITIONS</Link>
 	<Link to="/events" getProps={getLinkProps}>EVENTS</Link>

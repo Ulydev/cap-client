@@ -2,7 +2,7 @@
 	import DarkModeToggle from "./DarkModeToggle.svelte";
 </script>
 
-<footer class="flex flex-col items-center space-y-2 max-w-3xl mx-auto text-center my-8 text-xs text-gray-800 dark:text-gray-400">
+<footer class="flex flex-col items-center space-y-2 max-w-3xl mx-auto text-center mt-8 pb-8 text-xs text-gray-800 dark:text-gray-400">
 	<span>
 		Cap • <a href='https://t.me/capfin' class="text-green-400">Telegram</a>
 	</span>

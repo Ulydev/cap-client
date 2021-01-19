@@ -166,18 +166,18 @@
 	}
 </style>
 
-<Panel class='flex flex-col text-gray-400'>
-	<div class="text-lg mb-4 font-semibold dark:text-white">Positions</div>
+<Panel class='flex flex-col text-gray-700 dark:text-gray-400'>
+	<div class="text-lg mb-4 font-semibold text-gray-900 dark:text-white">Positions</div>
 	{#if !$positions || !$positions.length}
 		<div>
 			Nothing to show.
 		</div>
 	{:else}
 		<div class="flex flex-col space-y-2">
-			{#each $positions as position}
+			{#each $positions as position, i}
 
-				<div class="flex flex-col shadow-lg bg-green-600 rounded-md">
-					<div class='flex flex-col space-y-1 bg-green-400 rounded-md shadow-sm p-4 text-white'>
+				<div class="flex flex-col shadow-lg bg-gray-100 dark:bg-gray-800 rounded-md">
+					<div class={`flex flex-col space-y-1 bg-gray-300 dark:bg-gray-700 rounded-md shadow-sm p-4 text-gray-700 dark:text-white ${i % 2 === 0 ? "bg-opacity-75 dark:bg-opacity-25" : ""}`}>
 						<div class="flex flex-col">
 							<div class="flex flex-row justify-between text-2xl">
 								<span class="font-bold">{position.isBuy ? '⬆' : '⬇'} {figiToProduct(position.symbol)}</span>
@@ -190,38 +190,14 @@
 						</div>
 						<div class="flex flex-row justify-end space-x-2">
 							<button
-								class={`border px-2 rounded-sm ${showClosePosition == position.id ? "text-gray-800 border-gray-800" : "text-white border-white"}`}
+								class={`border-b-2 border-transparent text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900 px-2 rounded-sm ${showClosePosition == position.id ? "border-primary-100" : ""}`}
 								on:click={() => {toggleClosePosition(position.id)}}>Close</button>
 							<span>-</span>
 							<button
-								class={`border px-2 rounded-sm ${showEstimator == position.id ? "text-gray-800 border-gray-800" : "text-white border-white"}`}
+								class={`border-b-2 border-transparent text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900 px-2 rounded-sm ${showEstimator == position.id ? "border-primary-100" : ""}`}
 								on:click={() => {toggleEstimator(position.id)}}>Est</button>
 						</div>
 					</div>
-					{#if showAddMargin == position.id}
-						<div class='p-4'>
-							<form
-								on:submit|preventDefault={() => {addMargin(position.id, position.isBuy)}}
-								on:invalid={validateInputs}
-								on:changed={validateInputs}
-								on:input={validateInputs}
-								class="space-y-2"
-							>
-								<Input
-									inverted
-									bind:element={input}
-									placeholder='Margin to add'
-									bind:value={margin}
-								/>
-								<Button 
-									inverted
-									text='Add Margin'
-									isloading={loadingAddMargin}
-									class="bg-white text-green-400"
-								/>
-							</form>
-						</div>
-					{/if}
 					{#if showClosePosition == position.id}
 						<div class='p-4'>
 							<form
@@ -238,10 +214,9 @@
 									bind:value={margin}
 								/>
 								<Button 
-									inverted
 									text='Close'
 									isloading={loadingClose}
-									class="bg-white text-green-400"
+									class="border-none"
 								/>
 							</form>
 						</div>
@@ -273,10 +248,9 @@
 								</div>
 								{/if}
 								<Button 
-									inverted
 									text='Estimate P/L'
 									isloading={loadingEstimatePnl}
-									class="bg-white text-green-400"
+									class="border-none"
 								/>
 							</form>
 						</div>

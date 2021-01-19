@@ -71,18 +71,18 @@
 	}
 </style>
 
-<Panel class='flex flex-col text-gray-400'>
-	<div class="text-lg mb-4 font-semibold dark:text-white">Events</div>
+<Panel class='flex flex-col text-gray-700 dark:text-gray-400'>
+	<div class="text-lg mb-4 font-semibold text-gray-900 dark:text-white">Events</div>
 	{#if !$events || !$events.length}
 		<div class='row'>
 			Nothing to show.
 		</div>
 	{:else}
 		<div class="flex flex-col space-y-2">	
-			{#each $events as event}
+			{#each $events as event, i}
 
-				<div class="flex flex-col shadow-lg bg-green-600 rounded-md">
-					<div class='flex flex-col p-2 rounded-md shadow-sm bg-green-400 p-4 text-white'>
+				<div class={`flex flex-col shadow-lg bg-gray-100 dark:bg-gray-800 rounded-md`}>
+					<div class={`flex flex-col space-y-1 bg-gray-300 dark:bg-gray-700 rounded-md shadow-sm p-4 text-gray-700 dark:text-white ${i % 2 === 0 ? "bg-opacity-75 dark:bg-opacity-25" : ""}`}>
 						<div class="flex flex-row items-center space-x-2">
 							<span>
 								{eventSymbol(event)}
@@ -93,16 +93,16 @@
 						</div>
 						<div class="flex flex-row justify-end space-x-2 mt-1">
 							<button
-									class={`border px-2 rounded-sm ${showDetails == event.txhash ? "text-gray-800 border-gray-800" : "text-white border-white"}`}
+									class={`border-b-2 border-transparent text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900 px-2 rounded-sm ${showDetails == event.txhash ? "border-primary-100" : ""}`}
 									on:click={() => {toggleDetails(event.txhash)}}>Details</button>
 							<span>-</span>
 							<a
-								class="border px-2 rounded-sm text-white border-white"
+								class="border-b-2 border-transparent text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900 px-2 rounded-sm"
 								target='_blank' href={`https://${$chainId == '0x3' ? 'ropsten.' : ''}etherscan.io/tx/${event.txhash}`}>TX</a>
 						</div>
 					</div>
 					{#if showDetails == event.txhash}
-					<div class='p-4 text-white rounded-md'>
+					<div class='p-4 text-gray-700 dark:text-white rounded-md'>
 						{#each Object.keys(event) as eventKey}
 							{eventKey}: {eventKey === "txhash" ? formatAddress(event[eventKey]) : event[eventKey]}<br/>
 						{/each}

@@ -100,7 +100,7 @@
 
 	$: productChanged(product);
 
-	const infoClass = "p-4 text-white"
+	const infoClass = "p-4 text-gray-900 dark:text-white"
 
 	$: tradingviewID = productInfo && productToTradingViewID((product).toUpperCase())
 
@@ -108,29 +108,48 @@
 
 <style global>
 
-	@keyframes slide-to-left {
-		from { transform: translateX(0); }
-		to { transform: translateX(calc(-50% - 1rem)); }
+	@keyframes slide-chart {
+		from { transform: translateX(0); opacity: 0; }
+		to { transform: translateX(calc(-100% - 2rem)); opacity: 1; }
 	}
 
-	@keyframes slide-to-right {
+	@keyframes slide-panel {
+		from { transform: translateX(0); }
+		to { transform: translateX(calc(50% + 1rem)); }
+	}
+
+	@keyframes slide-chart-large {
 		from { transform: translateX(0); opacity: 0; }
-		to { transform: translateX(calc(100% + 2rem)); opacity: 1; }
+		to { transform: translateX(calc(-100% - 2rem)); opacity: 1; }
+	}
+
+	@keyframes slide-panel-large {
+		from { transform: translateX(0); }
+		to { transform: translateX(calc(75% + 1rem)); }
 	}
 
 	@media (min-width: 1024px) {
 		#tradingview-container {
-			animation: slide-to-right 1s 1s forwards;
+			animation: slide-chart 1s 1s forwards;
 		}
-		.slide-to-left {
-			animation: slide-to-left 1s 1s forwards;
+		.slide-panel {
+			animation: slide-panel 1s 1s forwards;
+		}
+	}
+	@media (min-width: 1280px) {
+		#tradingview-container {
+			animation: slide-chart-large 1s 1s forwards;
+			width: 150%;
+		}
+		.slide-panel {
+			animation: slide-panel-large 1s 1s forwards;
 		}
 	}
 
 </style>
 
 <Panel
-	class={`mx-2 lg:mx-0 shadow-lg rounded-md mt-8 bg-green-400 relative ${ !!productInfo ? "slide-to-left" : "" }`}>
+	class={`mx-2 lg:mx-0 shadow-lg rounded-md mt-8 bg-gray-400 dark:bg-gray-800 relative ${ !!productInfo ? "slide-panel" : "" }`}>
 
 	<form
 		on:submit|preventDefault={_submitOrder}
@@ -138,16 +157,16 @@
 		on:changed={validateInputs}
 		on:input={validateInputs}
 		class="relative z-20 bg-green-400 rounded-md">
-		<div class='bg-white p-4 rounded-md shadow-md dark:bg-green-600'>
+		<div class='bg-gray-300 p-4 rounded-md shadow-md dark:bg-gray-700'>
 			<div class='flex flex-col'>
-				<span class="text-sm text-green-400 uppercase font-semibold mb-2">Asset</span>
+				<span class="text-sm text-gray-900 dark:text-white uppercase font-bold mb-2">Asset</span>
 				<Input
 					_type='text'
 					bind:element={input}
 					placeholder='BTC, AAPL... or Composite FIGI'
 					uppercase={true}
 					bind:value={product}
-					class="dark:border-green-400 dark:placeholder-gray-300 dark:text-white"
+					class="placeholder-gray-700 text-gray-900 dark:placeholder-gray-300 dark:text-white"
 				/>
 			</div>
 		</div>
@@ -155,24 +174,25 @@
 			<div class="rounded-md">
 				{#if productInfo}
 					<div class={`${infoClass} flex flex-col relative`}>
-						<div class="flex flex-row items-center justify-between">
-							<div class="flex flex-row items-center space-x-2">
-								<span class="text-2xl font-semibold uppercase">
-									{ product }
-								</span>
-								<span class="px-2 text-green-400 bg-white rounded-sm font-semibold">
-									{ formatBigInt(productInfo.maxLeverage, BigInt(8)) }x
-								</span>
+						<div class="flex flex-col">
+							<div class="flex flex-row justify-between items-center">
+								<div class="flex flex-row items-center space-x-2">
+									<span class="text-2xl font-semibold uppercase">
+										{ product }
+									</span>
+									<span class="px-2 text-primary-300 dark:text-primary-200 bg-gray-200 dark:bg-gray-900 rounded-sm font-semibold">
+										{ formatBigInt(productInfo.maxLeverage, BigInt(8)) }x
+									</span>
+								</div>
+								<div class="flex flex-col text-xs text-right">
+									<span>Spread:  {formatBigInt(BigInt(100) * productInfo.fee, BigInt(8))}%</span>
+									<span>Daily funding: ~ {formatBigInt(BigInt(5760) * BigInt(100) * productInfo.fundingRate, BigInt(8))}%</span>
+								</div>
 							</div>
-							<div class="space-x-2">
-								<RadioButton bind:group={side} value='buy' label='Buy' />
-								<RadioButton bind:group={side} value='sell' label='Sell' />
+							<div class="flex flex-row w-full my-4">
+								<RadioButton bind:group={side} value='buy' label='Buy/Long' />
+								<RadioButton bind:group={side} value='sell' label='Sell/Short' />
 							</div>
-						</div>
-						<hr class="my-2 border-white border-dotted border-t-2" />
-						<div class="flex flex-col text-xs">
-							<span>Spread:  {formatBigInt(BigInt(100) * productInfo.fee, BigInt(8))}%</span>
-							<span>Daily funding: ~ {formatBigInt(BigInt(5760) * BigInt(100) * productInfo.fundingRate, BigInt(8))}%</span>
 						</div>
 					</div>
 				{:else}
@@ -187,7 +207,7 @@
 
 				<div
 					id="tradingview-container"
-					class={`relative lg:absolute z-10 opacity-100 lg:opacity-0 top-0 w-full h-full lg:rounded-md overflow-hidden ${!tradingviewID ? "hidden" : ""}`}>
+					class={`relative mb-2 lg:mb-0 lg:absolute z-10 opacity-100 lg:opacity-0 top-0 w-full h-full lg:rounded-md overflow-hidden ${!tradingviewID ? "hidden" : ""}`}>
 					<TradingViewWidget options={{
 						container_id: "tradingview-container",
 						symbol: tradingviewID, theme: $darkMode ? "dark" : "light", autosize: true,
@@ -197,7 +217,7 @@
 
 				{#if productInfo}
 					<div class={`${infoClass}`}>
-						<div class="flex flex-row space-x-4 text-white">
+						<div class="flex flex-row space-x-4 text-gray-900 dark:text-white">
 							<div class='flex flex-col'>
 								<span class="text-sm uppercase">Margin</span>
 								<div class="relative my-2">
