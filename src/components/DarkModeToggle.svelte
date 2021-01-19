@@ -14,7 +14,7 @@
 	}
 
 	onMount(() => {
-		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		if (localStorage.theme === 'dark' || (!('theme' in localStorage))) {
             document.querySelector('html').classList.add('dark')
             darkMode.set(true)
 		} else {
