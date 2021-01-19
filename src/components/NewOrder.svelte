@@ -175,14 +175,17 @@
 				{#if productInfo}
 					<div class={`${infoClass} flex flex-col relative`}>
 						<div class="flex flex-col">
-							<div class="flex flex-row justify-between items-center">
-								<div class="flex flex-row items-center space-x-2">
-									<span class="text-2xl font-semibold uppercase">
-										{ product }
-									</span>
-									<span class="px-2 text-primary-300 dark:text-primary-200 bg-gray-200 dark:bg-gray-900 rounded-sm font-semibold">
-										{ formatBigInt(productInfo.maxLeverage, BigInt(8)) }x
-									</span>
+							<div class="flex flex-row justify-between items-start">
+								<div class="flex flex-col">
+									<div class="flex flex-row items-center space-x-2">
+										<span class="text-2xl font-semibold uppercase">
+											{ product }
+										</span>
+										<span class="px-2 text-primary-300 dark:text-primary-200 bg-gray-200 dark:bg-gray-900 rounded-sm font-semibold">
+											{ formatBigInt(productInfo.maxLeverage, BigInt(8)) }x
+										</span>
+									</div>
+									<span class="opacity-75 text-sm">{ productToFigi(product.toUpperCase()) }</span>
 								</div>
 								<div class="flex flex-col text-xs text-right">
 									<span>Spread:  {formatBigInt(BigInt(100) * productInfo.fee, BigInt(8))}%</span>
