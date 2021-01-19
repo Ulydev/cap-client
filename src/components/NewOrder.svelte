@@ -210,7 +210,7 @@
 
 				<div
 					id="tradingview-container"
-					class={`relative mb-2 lg:mb-0 lg:absolute z-10 opacity-100 lg:opacity-0 top-0 w-full h-full lg:rounded-md overflow-hidden ${!tradingviewID ? "hidden" : ""}`}>
+					class={`relative mb-2 lg:mb-0 lg:absolute z-10 opacity-100 lg:opacity-0 top-0 w-full h-80 lg:h-full lg:rounded-md overflow-hidden ${!tradingviewID ? "hidden" : ""}`}>
 					<TradingViewWidget options={{
 						container_id: "tradingview-container",
 						symbol: tradingviewID, theme: $darkMode ? "dark" : "light", autosize: true,
