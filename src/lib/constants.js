@@ -8,6 +8,10 @@ export const EMPTY_BYTES32 = '0x' + '0'.repeat(64);
 
 export const CONTRACTS = {
 	'0x1': {
+		DAI: '0x6b175474e89094c44da98b954eedeac495271d0f'.toLowerCase(),
+		PRODUCTS: '0x5777dc3Cc06D55104C63ECDd48CC88908B6ca3d9'.toLowerCase(),
+		TRADING: '0x4a357Dab71653bcB1c1B6a92476f5BF4Bb7a4a48'.toLowerCase(),
+		TREASURY: '0x6eB80143761ddfE75D5EA87D913EBc1ebd68DE81'.toLowerCase()
 	},
 	'0x3': {
 		DAI: '0xc29aDA4405024AeD8fF04Ed8600F6F93536DCdC6'.toLowerCase(),
