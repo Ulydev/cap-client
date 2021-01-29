@@ -103,6 +103,8 @@ export default {
     <meta property="og:site_name" content="cap.finance"/>
     <meta property="og:image" content="https://cap.finance/assets/logo-square-256.png" />
     
+    <script async defer data-domain="app.cap.exchange" src="https://plausible.io/js/plausible.js"></script>
+
     <style>
         html {
           box-sizing: border-box;
