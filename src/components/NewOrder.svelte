@@ -1,9 +1,13 @@
 <script>
+	import { getContext } from "svelte"
+
 	import Panel from './Panel.svelte'
 	import Input from './Input.svelte'
 	import RadioButton from './RadioButton.svelte'
 	import Button from './Button.svelte'
 	import TradingViewWidget from "./TradingViewWidget.svelte"
+
+	import AssetSelectionModal from "./AssetSelectionModal.svelte"
 
 	import { productToFigi, productToTradingViewID } from '../lib/products'
 	import getProductInfo from '../lib/getProductInfo'
@@ -104,6 +108,11 @@
 
 	$: tradingviewID = productInfo && productToTradingViewID((product).toUpperCase())
 
+	const { open } = getContext("simple-modal")
+	const showAssetSelection = () => {
+		open(AssetSelectionModal, { onChooseAsset: p => { product = p.symbol } })
+	}
+
 </script>
 
 <style global>
@@ -160,14 +169,21 @@
 		<div class='bg-gray-300 p-4 rounded-md shadow-md dark:bg-gray-700'>
 			<div class='flex flex-col'>
 				<span class="text-sm text-gray-900 dark:text-white uppercase font-bold mb-2">Asset</span>
-				<Input
-					_type='text'
-					bind:element={input}
-					placeholder='BTC, AAPL... or Composite FIGI'
-					uppercase={true}
-					bind:value={product}
-					class="placeholder-gray-700 text-gray-900 dark:placeholder-gray-300 dark:text-white"
-				/>
+				<div class="relative">
+					<Input
+						_type='text'
+						bind:element={input}
+						placeholder='BTC, AAPL... or Composite FIGI'
+						uppercase={true}
+						bind:value={product}
+						class="placeholder-gray-700 text-gray-900 dark:placeholder-gray-300 dark:text-white"
+					/>
+					<button
+						on:click={showAssetSelection} type="button"
+						class="flex flex-row items-center justify-center absolute top-0 right-0 w-10 h-10 bg-gray-400 dark:bg-gray-900 text-white rounded-r-sm">
+						<svg class="text-gray-900 dark:text-gray-100 w-5 h-5" stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6 9.65685L7.41421 11.0711L11.6569 6.82843L15.8995 11.0711L17.3137 9.65685L11.6569 4L6 9.65685Z" fill="currentColor"></path><path d="M6 14.4433L7.41421 13.0291L11.6569 17.2717L15.8995 13.0291L17.3137 14.4433L11.6569 20.1001L6 14.4433Z" fill="currentColor"></path></svg>
+					</button>
+				</div>
 			</div>
 		</div>
 		<div class="">
