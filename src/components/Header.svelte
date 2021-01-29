@@ -16,7 +16,7 @@
 				Trading
 				<div class="absolute w-full -mb-1 bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary-400 to-primary-100" />
 			</a>
-			<a class="hover:text-gray-900 dark:hover:text-white" href="https://gov.cap.uly.dev" target="_blank" rel="noopener noreferrer">Governance</a>
+			<a class="hover:text-gray-900 dark:hover:text-white" href="https://gov.cap.exchange" target="_blank" rel="noopener noreferrer">Governance</a>
 		</div>
 		<div class="flex flex-row items-center space-x-2">
 			<div class="px-4 py-1 bg-gray-900 bg-opacity-50 dark:bg-opacity-100 rounded-sm text-gray-100">
