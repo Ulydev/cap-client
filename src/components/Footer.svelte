@@ -4,7 +4,7 @@
 
 <footer class="flex flex-col items-center space-y-2 max-w-3xl mx-auto text-center mt-8 pb-8 text-xs text-gray-800 dark:text-gray-400">
 	<span>
-		Cap • <a href='https://t.me/capfin' class=" hover:text-primary-400 dark:hover:text-primary-200">Telegram</a> • <a href='https://cap.ethlink' class="hover:text-primary-400 dark:hover:text-primary-200">Alt UI</a>
+		Cap • <a href='https://t.me/capfin' class=" hover:text-primary-400 dark:hover:text-primary-200">Telegram</a> • <a href='https://cap.eth.link' class="hover:text-primary-400 dark:hover:text-primary-200">Alt UI</a>
 	</span>
 	<DarkModeToggle />
 	<div class="flex flex-col space-y-2 pt-8">
