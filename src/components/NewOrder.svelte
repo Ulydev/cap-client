@@ -1,5 +1,7 @@
 <script>
-	import { getContext } from "svelte"
+	import { getContext, onMount } from "svelte"
+
+	import queryString from "query-string";
 
 	import Panel from './Panel.svelte'
 	import Input from './Input.svelte'
@@ -14,7 +16,7 @@
 	import submitOrder from '../lib/submitOrder'
 	import { selectedProduct } from '../stores/main'
 	import { showToast } from '../stores/toasts'
-	import { formatBigInt, parseDecimal } from '../lib/utils'
+	import { formatBigInt, parseDecimal, updateURLParameter } from '../lib/utils'
 
 	import { darkMode } from "../stores/main"
 
@@ -72,6 +74,7 @@
 			productInfo = await getProductInfo(symbol);
 			//console.log('productInfo', productInfo);
 			selectedProduct.set(product);
+			window.history.replaceState('', '', updateURLParameter(window.location.href, 'product', product.toUpperCase()))
 		} catch(e) {
 			productNotFound = true;
 			/* 
@@ -112,6 +115,16 @@
 	const showAssetSelection = () => {
 		open(AssetSelectionModal, { onChooseAsset: p => { product = p.symbol } })
 	}
+
+	onMount(() => {
+		let parsed = {}
+		if (typeof window !== 'undefined') {
+			parsed = queryString.parse(window.location.search)
+		}
+		if (parsed.product) {
+			product = parsed.product
+		}
+	})
 
 </script>
 
