@@ -13,7 +13,7 @@
 	<Tailwind />
 	<GlobalStyles />
 	<UtilityStyles />
-	<Modal styleWindow={{ width: 'fit-content' }} contentClass="dark:bg-gray-900 bg-gray-100 rounded-md shadow-lg" styleContent={{ padding: "0" }} closeButton={false}>
+	<Modal windowClass="window" contentClass="dark:bg-gray-900 bg-gray-100 rounded-md shadow-lg" styleContent={{ padding: "0" }} closeButton={false}>
 		<Home />
 	</Modal>
 </main>

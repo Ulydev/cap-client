@@ -8,7 +8,20 @@
     export let onChooseAsset
 </script>
 
-<div class="w-screen max-w-md">
+<style global>
+    @media (max-width: 639px) {
+        .window {
+            width: 100% !important;
+        }
+    }
+    @media (min-width: 640px) {
+        .window {
+            width: fit-content !important;
+        }
+    }
+</style>
+
+<div class="w-full sm:w-screen sm:max-w-md">
     <div class="flex flex-row items-center justify-between p-4 pr-2">
         <span class="dark:text-gray-100 text-gray-900">Select Asset</span>
         <button class="dark:text-gray-100 text-gray-900 hover:opacity-50 transition duration-300 p-2" on:click={() => close()}>
