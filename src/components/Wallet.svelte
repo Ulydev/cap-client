@@ -120,5 +120,5 @@ import { formatAddress } from '../lib/utils';
 {#if $user}
 	<div>{ formatAddress($user) }</div>
 {:else}
-	<div><a on:click={connect}>Connect Metamask</a></div>
+	<div><button on:click={connect}>Connect Metamask</button></div>
 {/if}
